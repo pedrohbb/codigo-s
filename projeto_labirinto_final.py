@@ -201,6 +201,11 @@ def movimento_aleatorio(labirinto: list, posicao_atual: tuple, procurado: str) -
     return False
 
 def tracker(maze, current_posit, stack, state=False):
+  """maze: lista labirinto
+     current_posit: posição atual do robô
+     stack: pilha de posições já visitadas
+     state: parâmetro para imprimir
+     notas: persegue iteradamente uma saída """
 
     if state:
         printmaze(maze)
@@ -243,6 +248,8 @@ def tracker(maze, current_posit, stack, state=False):
             return 'trap'
 
 def trapfinder(maze):
+  """ (ver comentário função tracker) modificação da função tracker para construir iteradamente uma lista labirinto concatenando-se colunas. """
+  
     n = len(maze[0])            
     for j in range(1,n-1):
         mazetest = copy.deepcopy(maze)
