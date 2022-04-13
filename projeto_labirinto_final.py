@@ -13,12 +13,11 @@ from IPython.display import clear_output
 
 def mazegenerator(m,n):
     """
-    Considera dois inteiros 'm' e 'n' e retorna uma lista 'labirinto' com  'm' linhas, 'n' colunas e entrada-saída ao longo da dimensão de
-    maior comprimento. A construção do labirinto é feita concatenando-se linhas. Ela é dividida em etapas: a linha 0 é criada; em seguida 
-    as linhas 1 até m-2 e por fim a última linha. Por razões de compensação, considera-se a mudança de variáveis nas primeiras linhas 
-    desse código (para mais detalhes, ver comentário da função trapfinder).
-    """
-    
+    Considera dois inteiros 'm' e 'n' e retorna uma lista 'labirinto' com  'm' linhas, 'n' colunas e entrada-saída ao longo da 
+    dimensão de maior comprimento. A construção do labirinto é feita concatenando-se linhas. Ela é dividida em etapas: a linha 0 
+    é criada; em seguida as linhas 1 até m-2 e por fim a última linha. Por razões de compensação, considera-se a mudança de variáveis 
+    nas primeiras linhas desse código (para mais detalhes, ver comentário da função trapfinder). 
+    """  
                                                           
     transp_axis = (m < n)                 
     if transp_axis:                                
@@ -140,16 +139,16 @@ def printmaze(maze):
 
 
 def posicionar_aleatorio(labirinto:list, caracter_a_posicionar:str, lista_a_ignorar:list or None = None) -> tuple:
-
-    '''Posiciona um caracter em uma posição válida
-
+    '''
+    Posiciona um caracter em uma posição válida
     labirinto: lista de listas
-    x: índice que marca início do conjunto de posições a ser consideradoy: última linha da lista
     caracter_a_posicionar: qual caracter deve ser posicionado
     lista_a_ignorar: lista de caracteres os quais caracter_a_posicionar não pode ocupar a posição
-    retorna: uma tupla linha, coluna da posição em que o robo foi inserido
-
+    retorna: uma tupla (linha, coluna) da posição em que o robo foi inserido
+    observação: num labirinto com apenas uma saída, pode-se usar esta função para induzir de maneira aleatória uma
+    posição inicial do robô dentro do labirinto.
     '''
+  
     m = len(labirinto)
     n = len(labirinto[0])
     
@@ -165,10 +164,10 @@ def posicionar_aleatorio(labirinto:list, caracter_a_posicionar:str, lista_a_igno
 
 
 def movimento_aleatorio(labirinto: list, posicao_atual: tuple, procurado: str) -> tuple or bool:
-    '''Verifica se o robo pode ser movimentar para uma posição procurada
-    
-    retorna False se o robo NÃO pode se movimentar para uma posição procurada,
-    ou a posição se o robo pode se movimenta para uma posição procurada'''
+    '''
+    Verifica se o robo pode se movimentar para uma posição procurada; retorna False se o robo NÃO consegue se 
+    movimentar para a posição desejada, ou a própria posição se o robô conseguir efetuar o movimento para a posição.
+    '''
    
     linha = posicao_atual[0]
     coluna = posicao_atual[1]
@@ -186,7 +185,7 @@ def movimento_aleatorio(labirinto: list, posicao_atual: tuple, procurado: str) -
 
             #para esquerda
             if (direcao_escolhida == 'esquerda') and labirinto[linha][coluna-1] == procurado:
-                if coluna-1 > 0:                
+                if coluna-1 >= 0:                
                     return linha, coluna-1
 
             #para baixo
@@ -195,7 +194,7 @@ def movimento_aleatorio(labirinto: list, posicao_atual: tuple, procurado: str) -
 
             #para cima
             if (direcao_escolhida == 'cima') and labirinto[linha-1][coluna] == procurado:
-                if linha-1 > 0:
+                if linha-1 >= 0:
                     return linha-1, coluna
         except:
             pass
@@ -203,12 +202,13 @@ def movimento_aleatorio(labirinto: list, posicao_atual: tuple, procurado: str) -
     return False
 
 def tracker(maze, current_posit, stack, state=False):
-    """maze: lista labirinto
+    """
+    maze: lista labirinto
     current_posit: posição atual do robô
     stack: pilha de posições já visitadas
     state: parâmetro para imprimir
-    notas: persegue iteradamente uma saída """
-
+    notas: persegue iteradamente uma saída. 
+    """
 
     if state:
         printmaze(maze)
@@ -251,7 +251,9 @@ def tracker(maze, current_posit, stack, state=False):
             return 'trap'
 
 def trapfinder(maze):
-    """ (ver comentário função tracker) modificação da função tracker para construir iteradamente uma lista labirinto concatenando-se colunas. """
+    """ 
+    (ver comentário função tracker) modificação da função tracker para construir iteradamente uma lista labirinto concatenando-se linhas. 
+    """
     
     n = len(maze[0])            
     for j in range(1,n-1):
