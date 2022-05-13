@@ -27,7 +27,7 @@ def mazegenerator(m,n):
     maze = [list('##' for _ in range(n))]         #linha 0 (bordo do labirinto)    
 
     line = []                 #constrói linha 1
-    while len(line) == 0:
+    while line.count('  ') == 0:
 
         for i in range(n):
 
